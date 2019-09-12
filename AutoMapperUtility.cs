@@ -36,22 +36,31 @@ namespace thZero
 		public static void MapEntityData<TSource>(TSource source, TSource destination)
 			where TSource : class
 		{
-			Mapper.Map<TSource, TSource>(source, destination);
+            IMapper mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<TSource, TSource>();
+            }).CreateMapper();
+            mapper.Map<TSource, TSource>(source, destination);
 		}
 
 		public static TSource MapEntityData<TSource>(TSource source)
 			where TSource : class
 		{
 			TSource destination = System.Activator.CreateInstance<TSource>();
-			Mapper.Map<TSource, TSource>(source, destination);
-			return destination;
+            IMapper mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<TSource, TSource>();
+            }).CreateMapper();
+            mapper.Map<TSource, TSource>(source, destination);
+            return destination;
 		}
 
 		public static void MapEntityData<TSource, TDestination>(TSource source, TDestination destination)
 			where TSource : class
 			where TDestination : class
-		{
-			Mapper.Map<TSource, TDestination>(source, destination);
+        {
+            IMapper mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<TSource, TDestination>();
+            }).CreateMapper();
+            mapper.Map<TSource, TDestination>(source, destination);
 		}
 
 		public static TDestination MapEntityData<TSource, TDestination>(TSource source)
@@ -59,8 +68,11 @@ namespace thZero
 			where TDestination : class
 		{
 			TDestination destination = System.Activator.CreateInstance<TDestination>();
-			Mapper.Map<TSource, TDestination>(source, destination);
-			return destination;
+            IMapper mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<TSource, TDestination>();
+            }).CreateMapper();
+            mapper.Map<TSource, TDestination>(source, destination);
+            return destination;
 		}
 		#endregion
 
